@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" selectionStyle="none" indentationWidth="10" rowHeight="84" id="59s-6z-O86" customClass="TeachingRecordTableViewCell" customModule="搜太极" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="84"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="59s-6z-O86" id="XQj-do-9st">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="83.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ess-cn-sRJ">
+                        <rect key="frame" x="8" y="9" width="40" height="40"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="Zy5-7t-waq"/>
+                            <constraint firstAttribute="height" constant="40" id="imu-yY-rQO"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="我" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8DC-hw-7ye">
+                        <rect key="frame" x="56" y="9" width="167" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="6OZ-md-ytE"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="2016-9-24" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zeL-jm-VeI">
+                        <rect key="frame" x="243" y="9" width="124" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="124" id="oOk-FR-EQB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我刚开始自学太极拳，是简化24式，但是我不知道练太极拳，需要练哪些基本功呢？练太极时都需要注意哪些问题呢？" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8x-tB-UvH">
+                        <rect key="frame" x="56" y="39" width="311" height="38"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bMB-DX-gef">
+                        <rect key="frame" x="56" y="35" width="40" height="40"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_attachment_audio" translatesAutoresizingMaskIntoConstraints="NO" id="kcw-FZ-UPc">
+                                <rect key="frame" x="8" y="8" width="24" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="24" id="Wjq-N4-IwA"/>
+                                    <constraint firstAttribute="height" constant="24" id="jzq-1Q-I7G"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="kcw-FZ-UPc" firstAttribute="top" secondItem="bMB-DX-gef" secondAttribute="topMargin" id="E16-6i-0rP"/>
+                            <constraint firstItem="kcw-FZ-UPc" firstAttribute="leading" secondItem="bMB-DX-gef" secondAttribute="leadingMargin" id="kUx-Gw-Fmv"/>
+                            <constraint firstAttribute="height" constant="40" id="pjK-iU-Anz"/>
+                            <constraint firstAttribute="width" constant="40" id="x8s-FW-dXf"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Ess-cn-sRJ" firstAttribute="top" secondItem="8DC-hw-7ye" secondAttribute="top" id="4FT-XB-6OC"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Ess-cn-sRJ" secondAttribute="bottom" constant="46.5" id="BzV-Sz-Pcr"/>
+                    <constraint firstItem="8DC-hw-7ye" firstAttribute="leading" secondItem="Ess-cn-sRJ" secondAttribute="trailing" constant="8" symbolic="YES" id="Crk-dd-6qt"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="d8x-tB-UvH" secondAttribute="trailing" id="Fjn-nN-Ld9"/>
+                    <constraint firstAttribute="trailing" secondItem="bMB-DX-gef" secondAttribute="trailing" constant="279" id="HBv-aE-otp"/>
+                    <constraint firstItem="8DC-hw-7ye" firstAttribute="baseline" secondItem="zeL-jm-VeI" secondAttribute="baseline" id="IQW-e2-gkY"/>
+                    <constraint firstItem="Ess-cn-sRJ" firstAttribute="top" secondItem="XQj-do-9st" secondAttribute="topMargin" constant="1" id="Laa-2S-UAO"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="bMB-DX-gef" secondAttribute="bottom" constant="0.5" id="P3g-rU-USo"/>
+                    <constraint firstItem="Ess-cn-sRJ" firstAttribute="leading" secondItem="XQj-do-9st" secondAttribute="leadingMargin" id="W7P-FX-EEB"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="bMB-DX-gef" secondAttribute="trailing" constant="271" id="ZiX-Lg-VJE"/>
+                    <constraint firstItem="zeL-jm-VeI" firstAttribute="trailing" secondItem="XQj-do-9st" secondAttribute="trailingMargin" id="cIp-A7-PiJ"/>
+                    <constraint firstItem="d8x-tB-UvH" firstAttribute="leading" secondItem="8DC-hw-7ye" secondAttribute="leading" id="dZH-w6-3Nd"/>
+                    <constraint firstItem="bMB-DX-gef" firstAttribute="top" secondItem="8DC-hw-7ye" secondAttribute="bottom" constant="5" id="ena-hH-hIT"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="d8x-tB-UvH" secondAttribute="bottom" constant="-1.5" id="l9e-kj-rgc"/>
+                    <constraint firstItem="d8x-tB-UvH" firstAttribute="top" secondItem="8DC-hw-7ye" secondAttribute="bottom" constant="9" id="lMi-Wm-MCc"/>
+                    <constraint firstItem="bMB-DX-gef" firstAttribute="centerY" secondItem="XQj-do-9st" secondAttribute="centerY" id="oEl-d6-MAM"/>
+                    <constraint firstItem="8DC-hw-7ye" firstAttribute="firstBaseline" secondItem="zeL-jm-VeI" secondAttribute="firstBaseline" id="oEq-pn-fhK"/>
+                    <constraint firstItem="d8x-tB-UvH" firstAttribute="leading" secondItem="bMB-DX-gef" secondAttribute="leading" id="rDK-Zl-Uj1"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Ess-cn-sRJ" secondAttribute="bottom" constant="79.5" id="rMs-eh-7kr"/>
+                    <constraint firstAttribute="trailing" secondItem="bMB-DX-gef" secondAttribute="trailing" constant="279" id="uDS-f2-abA"/>
+                    <constraint firstItem="zeL-jm-VeI" firstAttribute="leading" secondItem="8DC-hw-7ye" secondAttribute="trailing" constant="20" id="z3Q-Vh-MZf"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="BzV-Sz-Pcr"/>
+                        <exclude reference="rMs-eh-7kr"/>
+                        <exclude reference="HBv-aE-otp"/>
+                        <exclude reference="ZiX-Lg-VJE"/>
+                        <exclude reference="oEl-d6-MAM"/>
+                        <exclude reference="uDS-f2-abA"/>
+                        <exclude reference="z3Q-Vh-MZf"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="audioView" destination="bMB-DX-gef" id="04D-rr-2H3"/>
+                <outlet property="headImage" destination="Ess-cn-sRJ" id="Uqj-fg-pM3"/>
+                <outlet property="name" destination="8DC-hw-7ye" id="w04-9d-rca"/>
+                <outlet property="teachingContent" destination="d8x-tB-UvH" id="fzG-HL-0Hl"/>
+                <outlet property="teachingDate" destination="zeL-jm-VeI" id="adH-mv-rn7"/>
+                <outlet property="voicePlayIndicatorImageView" destination="kcw-FZ-UPc" id="UsL-Sw-63P"/>
+            </connections>
+            <point key="canvasLocation" x="281.5" y="114"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_attachment_audio" width="24" height="24"/>
+    </resources>
+</document>

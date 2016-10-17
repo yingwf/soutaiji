@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ClubTitleTableViewCell" customModule="搜太极" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="会馆介绍" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xbg-WU-qkA">
+                        <rect key="frame" x="8" y="11" width="287" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.5490196078431373" green="0.094117647058823528" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhz-Dd-Agx">
+                        <rect key="frame" x="329" y="7" width="46" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="46" id="s3M-m1-Zgr"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <state key="normal" title="更多">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="uhz-Dd-Agx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-1" id="0sp-Ij-Nsu"/>
+                    <constraint firstItem="Xbg-WU-qkA" firstAttribute="centerY" secondItem="uhz-Dd-Agx" secondAttribute="centerY" id="AMS-gB-yYy"/>
+                    <constraint firstItem="uhz-Dd-Agx" firstAttribute="leading" secondItem="Xbg-WU-qkA" secondAttribute="trailing" constant="34" id="Cb1-T7-5xA"/>
+                    <constraint firstItem="Xbg-WU-qkA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="3" id="Ojh-x3-Ru6"/>
+                    <constraint firstItem="Xbg-WU-qkA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="PUO-S0-iga"/>
+                    <constraint firstItem="Xbg-WU-qkA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="f6I-N0-FXw"/>
+                    <constraint firstAttribute="trailing" secondItem="uhz-Dd-Agx" secondAttribute="trailing" id="frQ-wZ-dlL"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="more" destination="uhz-Dd-Agx" id="dkk-Yq-9lu"/>
+                <outlet property="title" destination="Xbg-WU-qkA" id="jN7-HY-jbG"/>
+            </connections>
+            <point key="canvasLocation" x="181.5" y="329"/>
+        </tableViewCell>
+    </objects>
+</document>

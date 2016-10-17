@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="SGv-Qy-2FP" customClass="VideoCollectionViewCell" customModule="搜太极" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
+                <subviews>
+                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jw5-O1-tqJ">
+                        <rect key="frame" x="0.0" y="6" width="56" height="56"/>
+                        <subviews>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" image="ic_attachment_play" translatesAutoresizingMaskIntoConstraints="NO" id="4Bh-9p-Je9">
+                                <rect key="frame" x="16" y="16" width="24" height="24"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </view>
+                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="ic_delete" translatesAutoresizingMaskIntoConstraints="NO" id="yrC-0l-VgG">
+                        <rect key="frame" x="42" y="0.0" width="20" height="20"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="yrC-0l-VgG" secondAttribute="trailing" id="Uae-iw-Wyh"/>
+                <constraint firstItem="yrC-0l-VgG" firstAttribute="top" secondItem="SGv-Qy-2FP" secondAttribute="top" id="pzQ-iY-rTz"/>
+            </constraints>
+            <size key="customSize" width="62" height="62"/>
+            <connections>
+                <outlet property="deleteImage" destination="yrC-0l-VgG" id="o1n-X3-aPo"/>
+                <outlet property="playView" destination="4Bh-9p-Je9" id="q3I-Dg-5bW"/>
+                <outlet property="videoView" destination="jw5-O1-tqJ" id="vRB-WO-AN4"/>
+            </connections>
+            <point key="canvasLocation" x="121" y="172"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_attachment_play" width="24" height="24"/>
+        <image name="ic_delete" width="20" height="20"/>
+    </resources>
+</document>

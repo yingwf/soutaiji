@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="CoachIntroTableViewCell" customModule="搜太极" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="158"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="157.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="教练介绍" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i8u-Vh-uK3">
+                        <rect key="frame" x="10" y="10" width="165" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="h8b-Vf-chb"/>
+                            <constraint firstAttribute="width" constant="165" id="qjc-Yh-JQc"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.54901960780000003" green="0.094117647060000004" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NoP-bz-43H">
+                        <rect key="frame" x="10" y="37" width="355" height="84"/>
+                        <string key="text">陈式太极拳传人，武术六段，国家中级社会体育指导员陈式太极拳传人，武术六段，国家中级社会体育指导员陈式太极拳传人，武术六段，国家中级社会体育指导员陈式太极拳传人，武术六段，国家中级社会体育指导员陈式太极拳传人，武术六段，国家中级社会体育指导员陈式太极拳传人，武术六段，国家中级社会体育指导员</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.87" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TKU-I8-5lO">
+                        <rect key="frame" x="268" y="124" width="107" height="25"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="展开更多" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HnG-2b-G4m">
+                                <rect key="frame" x="27" y="4" width="52" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.38" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_expand" translatesAutoresizingMaskIntoConstraints="NO" id="ZNO-LM-lai">
+                                <rect key="frame" x="87" y="9" width="12" height="7"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZNO-LM-lai" firstAttribute="top" secondItem="TKU-I8-5lO" secondAttribute="top" constant="9" id="Bzm-i8-8Ip"/>
+                            <constraint firstItem="ZNO-LM-lai" firstAttribute="centerY" secondItem="TKU-I8-5lO" secondAttribute="centerY" id="HVd-lD-8Bc"/>
+                            <constraint firstItem="HnG-2b-G4m" firstAttribute="top" secondItem="TKU-I8-5lO" secondAttribute="top" constant="4" id="Jj6-2M-P1W"/>
+                            <constraint firstItem="ZNO-LM-lai" firstAttribute="leading" secondItem="HnG-2b-G4m" secondAttribute="trailing" constant="8" symbolic="YES" id="Uej-Mz-FVt"/>
+                            <constraint firstItem="HnG-2b-G4m" firstAttribute="leading" secondItem="TKU-I8-5lO" secondAttribute="leading" constant="27" id="Vdc-7r-E4s"/>
+                            <constraint firstItem="ZNO-LM-lai" firstAttribute="trailing" secondItem="TKU-I8-5lO" secondAttribute="trailingMargin" id="cfL-RY-tYf"/>
+                            <constraint firstItem="HnG-2b-G4m" firstAttribute="centerX" secondItem="TKU-I8-5lO" secondAttribute="centerX" id="fg0-eD-Aza"/>
+                            <constraint firstItem="ZNO-LM-lai" firstAttribute="centerY" secondItem="HnG-2b-G4m" secondAttribute="centerY" id="tqM-hk-rMh"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="NoP-bz-43H" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4xR-4i-kdk"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="TKU-I8-5lO" secondAttribute="bottom" constant="0.5" id="DUO-J8-BO7"/>
+                    <constraint firstItem="i8u-Vh-uK3" firstAttribute="leading" secondItem="NoP-bz-43H" secondAttribute="leading" id="Iye-yO-mBL"/>
+                    <constraint firstItem="NoP-bz-43H" firstAttribute="top" secondItem="i8u-Vh-uK3" secondAttribute="bottom" constant="6" id="Kd3-M9-MUz"/>
+                    <constraint firstItem="i8u-Vh-uK3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="OoD-Xo-c3X"/>
+                    <constraint firstAttribute="trailing" secondItem="TKU-I8-5lO" secondAttribute="trailing" id="Un6-c0-19y"/>
+                    <constraint firstItem="i8u-Vh-uK3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="2" id="bZL-7n-mel"/>
+                    <constraint firstItem="TKU-I8-5lO" firstAttribute="top" secondItem="NoP-bz-43H" secondAttribute="bottom" constant="3" id="dGg-PE-EbX"/>
+                    <constraint firstItem="NoP-bz-43H" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lxa-sM-o6J"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="DUO-J8-BO7"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="coachIntroLabel" destination="NoP-bz-43H" id="thd-xf-dQk"/>
+                <outlet property="expandView" destination="TKU-I8-5lO" id="ivB-qR-h2h"/>
+            </connections>
+            <point key="canvasLocation" x="227.5" y="286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ic_expand" width="16" height="13"/>
+    </resources>
+</document>

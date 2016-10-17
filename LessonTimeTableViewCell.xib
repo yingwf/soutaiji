@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="217" id="ocJ-is-0Fa" customClass="LessonTimeTableViewCell" customModule="搜太极" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="217"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ocJ-is-0Fa" id="mYJ-X0-AS4">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="216.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上传上课时间表" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KsN-Hc-8ek">
+                        <rect key="frame" x="8" y="8" width="359" height="201"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="201" id="dHn-Ff-htJ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.54901960780000003" green="0.094117647060000004" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstItem="KsN-Hc-8ek" firstAttribute="trailing" secondItem="mYJ-X0-AS4" secondAttribute="trailingMargin" id="DZh-cf-FaS"/>
+                    <constraint firstItem="KsN-Hc-8ek" firstAttribute="leading" secondItem="mYJ-X0-AS4" secondAttribute="leadingMargin" id="ETB-2b-xyZ"/>
+                    <constraint firstItem="KsN-Hc-8ek" firstAttribute="centerY" secondItem="mYJ-X0-AS4" secondAttribute="centerY" id="FMk-OI-Pbg"/>
+                    <constraint firstItem="KsN-Hc-8ek" firstAttribute="top" secondItem="mYJ-X0-AS4" secondAttribute="topMargin" id="jM8-C4-bU2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="uploadImage" destination="KsN-Hc-8ek" id="crQ-Fz-Ijn"/>
+            </connections>
+            <point key="canvasLocation" x="151.5" y="259.5"/>
+        </tableViewCell>
+    </objects>
+</document>

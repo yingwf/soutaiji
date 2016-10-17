@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="135" id="KGk-i7-Jjw" customClass="WebTableViewCell" customModule="搜太极" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GfZ-r6-ojn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="135"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </webView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="GfZ-r6-ojn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="MsX-X9-qRy"/>
+                    <constraint firstItem="GfZ-r6-ojn" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="OiD-bN-TMr"/>
+                    <constraint firstAttribute="trailing" secondItem="GfZ-r6-ojn" secondAttribute="trailing" id="X5x-aM-q4C"/>
+                    <constraint firstItem="GfZ-r6-ojn" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="tpi-Jb-Axv"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="webView" destination="GfZ-r6-ojn" id="9gV-Fw-ya4"/>
+            </connections>
+            <point key="canvasLocation" x="129.5" y="234.5"/>
+        </tableViewCell>
+    </objects>
+</document>

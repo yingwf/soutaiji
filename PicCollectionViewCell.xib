@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PicCollectionViewCell" customModule="搜太极" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="62" height="62"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="rQ8-Gi-S8M">
+                        <rect key="frame" x="0.0" y="6" width="56" height="56"/>
+                    </imageView>
+                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" image="ic_delete" translatesAutoresizingMaskIntoConstraints="NO" id="8fE-Yh-kXT">
+                        <rect key="frame" x="42" y="0.0" width="20" height="20"/>
+                    </imageView>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="rQ8-Gi-S8M" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="6" id="1Xo-lS-5ZS"/>
+                <constraint firstItem="rQ8-Gi-S8M" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="O0G-2x-uk6"/>
+                <constraint firstAttribute="trailing" secondItem="8fE-Yh-kXT" secondAttribute="trailing" id="Pi9-X1-EXn"/>
+                <constraint firstAttribute="bottom" secondItem="rQ8-Gi-S8M" secondAttribute="bottom" id="PtZ-sJ-yvw"/>
+                <constraint firstItem="8fE-Yh-kXT" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Uvu-nc-bcC"/>
+                <constraint firstAttribute="trailing" secondItem="rQ8-Gi-S8M" secondAttribute="trailing" constant="6" id="a2M-sd-fjz"/>
+            </constraints>
+            <size key="customSize" width="62" height="62"/>
+            <connections>
+                <outlet property="deleteImage" destination="8fE-Yh-kXT" id="Qp3-nK-Bwu"/>
+                <outlet property="pic" destination="rQ8-Gi-S8M" id="guK-Dg-W0X"/>
+            </connections>
+            <point key="canvasLocation" x="130" y="284"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_delete" width="20" height="20"/>
+    </resources>
+</document>
