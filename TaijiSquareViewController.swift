@@ -11,10 +11,9 @@ import Alamofire
 import SwiftyJSON
 import SDWebImage
 
-class TaijiSquareViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UICollectionViewDataSource {
+class TaijiSquareViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     @IBOutlet weak var tableView: UITableView!
 
-    var coachCollectionView: UICollectionView?
     var coachInfoArray = [CoachInfo]()
     var clubInfoArray = [ClubInfo]()
     var clubLabels = [UILabel]()
@@ -191,7 +190,6 @@ class TaijiSquareViewController: UIViewController,UITableViewDelegate,UITableVie
                     view.addSubview(imageView)
                     self.coachViews.append(view)
                     cell.contentView.addSubview(view)
-                    
 
                     if self.coachInfoArray.count == 0 {
                         //获取今日推荐教练
@@ -231,27 +229,6 @@ class TaijiSquareViewController: UIViewController,UITableViewDelegate,UITableVie
             rowHeight = screenSize.width * 0.5 + 80
         }
         return rowHeight
-    }
-    
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("coachcell", forIndexPath: indexPath) as! CoachCollectionViewCell
-        cell.coachImage.imageFromUrl(coachInfoArray[indexPath.row].photo!)
-        cell.coachName.text = coachInfoArray[indexPath.row].name
-        let tap = UITapGestureRecognizer(target: self, action: #selector(gotoCoachDetail(_:)))
-        cell.contentView.tag = indexPath.item
-        cell.contentView.addGestureRecognizer(tap)
-        return cell
-        
-    }
-    
-
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return coachInfoArray.count
-    }
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int{
-        return 1
     }
 
     func gotoClubDetail(sender: UITapGestureRecognizer){

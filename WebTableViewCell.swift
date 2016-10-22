@@ -29,6 +29,12 @@ class WebTableViewCell: UITableViewCell {
         
         webView.loadHTMLString(content, baseURL: nil)
         webView.sizeToFit()
+        if webView.scrollView.contentSize.height >= 135 {
+            let frame = webView.frame
+            webView.frame = CGRect(origin: frame.origin, size: CGSize(width: screenWidth, height: 135))
+        } else {
+            webView.frame = CGRect(origin: frame.origin, size: webView.scrollView.contentSize)
+        }
         
     }
     

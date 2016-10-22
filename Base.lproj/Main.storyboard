@@ -763,7 +763,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EyY-Q9-qge">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DDj-M5-Hhg">
@@ -782,14 +782,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="EyY-Q9-qge" firstAttribute="top" secondItem="hWw-sU-B73" secondAttribute="bottom" constant="-64" id="0QK-uq-6gq"/>
-                            <constraint firstItem="EyY-Q9-qge" firstAttribute="leading" secondItem="Qp3-tZ-VFP" secondAttribute="leading" id="1ko-e3-jhO"/>
                             <constraint firstItem="DDj-M5-Hhg" firstAttribute="bottom" secondItem="Kj0-IM-dHY" secondAttribute="top" id="Ccz-Kk-02V"/>
                             <constraint firstItem="DDj-M5-Hhg" firstAttribute="top" secondItem="hWw-sU-B73" secondAttribute="bottom" constant="559" id="HpJ-UN-LdE"/>
-                            <constraint firstItem="EyY-Q9-qge" firstAttribute="leading" secondItem="DDj-M5-Hhg" secondAttribute="leading" id="K10-Ms-zbS"/>
-                            <constraint firstItem="EyY-Q9-qge" firstAttribute="bottom" secondItem="Kj0-IM-dHY" secondAttribute="top" id="Uzz-1N-8iy"/>
-                            <constraint firstItem="EyY-Q9-qge" firstAttribute="trailing" secondItem="DDj-M5-Hhg" secondAttribute="trailing" id="dRL-8q-ZPD"/>
-                            <constraint firstAttribute="trailing" secondItem="EyY-Q9-qge" secondAttribute="trailing" id="fM0-Z7-8R8"/>
+                            <constraint firstItem="EyY-Q9-qge" firstAttribute="leading" secondItem="DDj-M5-Hhg" secondAttribute="leading" id="Igq-rA-RzM"/>
+                            <constraint firstItem="DDj-M5-Hhg" firstAttribute="top" secondItem="EyY-Q9-qge" secondAttribute="bottom" id="Jeu-Fz-hSD"/>
+                            <constraint firstItem="EyY-Q9-qge" firstAttribute="top" secondItem="Qp3-tZ-VFP" secondAttribute="top" id="TG9-oq-Bdq"/>
+                            <constraint firstItem="EyY-Q9-qge" firstAttribute="leading" secondItem="Qp3-tZ-VFP" secondAttribute="leading" id="hXk-5U-r07"/>
+                            <constraint firstItem="EyY-Q9-qge" firstAttribute="trailing" secondItem="DDj-M5-Hhg" secondAttribute="trailing" id="sFc-FR-gRM"/>
+                            <constraint firstAttribute="trailing" secondItem="EyY-Q9-qge" secondAttribute="trailing" id="vDx-AF-QMu"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -798,7 +798,8 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="教练详情" id="aBK-Om-cCq"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="selectCoachButton" destination="DDj-M5-Hhg" id="Cb6-uz-EMa"/>
                         <outlet property="tableView" destination="EyY-Q9-qge" id="Nnj-w5-bgt"/>
@@ -3992,6 +3993,7 @@
                     </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="createButton" destination="fe4-EF-Rkc" id="cr1-AE-pdN"/>
                         <outlet property="tableView" destination="t65-8S-dyb" id="eTp-az-Do7"/>
                         <segue destination="Q4Z-Cr-IoA" kind="push" id="WhG-hk-bsW"/>
                         <segue destination="9e6-MO-MjM" kind="push" id="owX-aP-i4E"/>

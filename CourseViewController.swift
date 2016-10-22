@@ -24,6 +24,8 @@ class CourseViewController: UIViewController,UITableViewDelegate,UITableViewData
     var mPage = 1
     var mSize = 10
 
+    @IBOutlet weak var createButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -40,7 +42,9 @@ class CourseViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.tableView.mj_header = header
         self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(upPullRefresh))
         
-        self.tableView.mj_header.beginRefreshing()
+        updateLessonList()
+        let username = userInfoStore.userName
+        createButton.hidden = coach?.user_Name != username
     }
     
     func updateLessonList() {

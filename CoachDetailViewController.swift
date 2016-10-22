@@ -51,8 +51,9 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.registerNib(UINib(nibName: "CourseTableViewCell", bundle: nil), forCellReuseIdentifier: courseCell)
         self.tableView.registerNib(UINib(nibName: "CoachQualificationTableViewCell", bundle: nil), forCellReuseIdentifier: qualificationCell)
         self.tableView.registerNib(UINib(nibName: "HonorTableViewCell", bundle: nil), forCellReuseIdentifier: honorCell)
-        
-        self.tableView.estimatedRowHeight = 44.0
+        self.tableView.registerNib(UINib(nibName: "WebTableViewCell", bundle: nil), forCellReuseIdentifier: WebTableViewCell.id)
+
+        self.tableView.estimatedRowHeight = 130.0
         self.tableView.rowHeight =  UITableViewAutomaticDimension
         
         
@@ -164,8 +165,13 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(titleCell, forIndexPath: indexPath) as! ClubTitleTableViewCell
                 cell.title.text = "教练公告"
+                cell.selectionStyle = .None
                 return cell
             }
+            let cell = tableView.dequeueReusableCellWithIdentifier(contentCell , forIndexPath: indexPath) as! ContentTableViewCell
+            cell.dataBind(coachInfo?.publish ?? "")
+            cell.selectionStyle = .None
+            return cell
         case 2:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(titleCell, forIndexPath: indexPath) as! ClubTitleTableViewCell
@@ -186,26 +192,46 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(titleCell, forIndexPath: indexPath) as! ClubTitleTableViewCell
                 cell.title.text = "教练介绍"
+                cell.selectionStyle = .None
                 return cell
             } else if indexPath.row == 1 {
-                let cell = tableView.dequeueReusableCellWithIdentifier(contentCell, forIndexPath: indexPath) as! ContentTableViewCell
-                cell.content.text = coachInfo?.content
+                let cell = tableView.dequeueReusableCellWithIdentifier(WebTableViewCell.id, forIndexPath: indexPath) as! WebTableViewCell
+                cell.dataBind(coachInfo?.content ?? "")
+                cell.selectionStyle = .None
+//                let cell = tableView.dequeueReusableCellWithIdentifier(contentCell, forIndexPath: indexPath) as! ContentTableViewCell
+//                cell.content.text = coachInfo?.content
                 return cell
             }
         case 4:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(titleCell, forIndexPath: indexPath) as! ClubTitleTableViewCell
                 cell.title.text = "视频展示"
+                cell.selectionStyle = .None
                 return cell
             }
+        //todo:add video
+            
         case 5:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(titleCell, forIndexPath: indexPath) as! ClubTitleTableViewCell
                 cell.title.text = "荣誉资质"
+                cell.selectionStyle = .None
                 return cell
             } else if indexPath.row == 1 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(honorCell, forIndexPath: indexPath) as! HonorTableViewCell
                 cell.honorImage.imageFromUrl(coachInfo?.ry1)
+                return cell
+            }else if indexPath.row == 2 {
+                let cell = tableView.dequeueReusableCellWithIdentifier(honorCell, forIndexPath: indexPath) as! HonorTableViewCell
+                cell.honorImage.imageFromUrl(coachInfo?.ry2)
+                return cell
+            }else if indexPath.row == 3 {
+                let cell = tableView.dequeueReusableCellWithIdentifier(honorCell, forIndexPath: indexPath) as! HonorTableViewCell
+                cell.honorImage.imageFromUrl(coachInfo?.ry3)
+                return cell
+            }else if indexPath.row == 4 {
+                let cell = tableView.dequeueReusableCellWithIdentifier(honorCell, forIndexPath: indexPath) as! HonorTableViewCell
+                cell.honorImage.imageFromUrl(coachInfo?.ry4)
                 return cell
             }
             
@@ -213,12 +239,14 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(titleCell, forIndexPath: indexPath) as! ClubTitleTableViewCell
                 cell.title.text = "教练评价"
+                cell.selectionStyle = .None
                 return cell
             }
             
         case 7:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(footerCell, forIndexPath: indexPath) as! FooterTableViewCell
+                cell.selectionStyle = .None
                 return cell
             }
             
@@ -236,11 +264,45 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 3 || section == 5 {
+        switch section {
+        case 1 :
+            if coachInfo?.publish != nil && coachInfo!.publish!.isEmpty {
+                return 0
+            } else {
+                return 2
+            }
+            
+        case 2:
+            if lessons.count > 0 {
+                return min(lessons.count, 2) + 1
+            }
+            return 0
+            
+        case 3:
+            if coachInfo!.content!.isEmpty {
+                return 0
+            }
             return 2
-        }
-        if section == 2 {
-            return min(lessons.count, 2) + 1
+            
+        case 4:
+            return 1
+            
+        case 5:
+            var count = 0
+            for ry in [coachInfo?.ry1,coachInfo?.ry2,coachInfo?.ry3,coachInfo?.ry4] {
+                if let clubry = ry where !clubry.isEmpty {
+                    count += 1
+                } else {
+                    break
+                }
+            }
+            if count > 0 {
+                count += 1
+            }
+            return count
+            
+        default:
+            return 1
         }
         return 1
     }

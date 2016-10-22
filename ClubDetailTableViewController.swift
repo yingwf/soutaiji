@@ -42,7 +42,7 @@ class ClubDetailTableViewController: UITableViewController {
         self.tableView.registerNib(UINib(nibName: "LessonTimeTableViewCell", bundle: nil), forCellReuseIdentifier: LessonTimeTableViewCell.id)
         self.tableView.registerNib(UINib(nibName: "ClubTeacherTableViewCell", bundle: nil), forCellReuseIdentifier: ClubTeacherTableViewCell.id)
 
-        self.tableView.estimatedRowHeight = 80.0
+        self.tableView.estimatedRowHeight = 130.0
         self.tableView.rowHeight =  UITableViewAutomaticDimension
         self.tableView.separatorStyle = .None
         self.tableView.scrollsToTop = true
@@ -107,7 +107,7 @@ class ClubDetailTableViewController: UITableViewController {
     
     func praseRemarkList(json: SwiftyJSON.JSON) {
         if json["success"].boolValue, let list = json["remarkList"].array where list.count > 0 {
-            lessons = list.map { LessonInfo(json: $0) }
+            //lessons = list.map { LessonInfo(json: $0) }
             tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .Automatic)
         }
     }

@@ -47,14 +47,14 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0lq-XH-hVG">
                         <rect key="frame" x="207" y="18" width="87" height="29"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_share_wechat" translatesAutoresizingMaskIntoConstraints="NO" id="tS4-hr-WgQ">
-                                <rect key="frame" x="0.0" y="0.0" width="31" height="29"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="ic_share_wechat" translatesAutoresizingMaskIntoConstraints="NO" id="tS4-hr-WgQ">
+                                <rect key="frame" x="5" y="0.0" width="31" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="31" id="5pi-Vd-Pj7"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4z-tf-ZEW">
-                                <rect key="frame" x="38" y="4" width="42" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="微信" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P4z-tf-ZEW">
+                                <rect key="frame" x="48" y="4" width="32" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.54000000000000004" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -67,7 +67,7 @@
                             <constraint firstAttribute="bottom" secondItem="tS4-hr-WgQ" secondAttribute="bottom" id="AwK-Ix-yuP"/>
                             <constraint firstItem="tS4-hr-WgQ" firstAttribute="top" secondItem="0lq-XH-hVG" secondAttribute="top" id="dmr-Iv-ZhN"/>
                             <constraint firstItem="P4z-tf-ZEW" firstAttribute="leading" secondItem="tS4-hr-WgQ" secondAttribute="trailing" constant="7" id="hBK-hZ-h9w"/>
-                            <constraint firstItem="tS4-hr-WgQ" firstAttribute="leading" secondItem="0lq-XH-hVG" secondAttribute="leading" id="jrz-IK-Yy4"/>
+                            <constraint firstItem="tS4-hr-WgQ" firstAttribute="leading" secondItem="0lq-XH-hVG" secondAttribute="leading" constant="10" id="jrz-IK-Yy4"/>
                             <constraint firstAttribute="width" constant="87" id="ssF-Ct-v13"/>
                             <constraint firstItem="P4z-tf-ZEW" firstAttribute="top" secondItem="0lq-XH-hVG" secondAttribute="top" constant="4" id="thp-t9-gsi"/>
                             <constraint firstItem="tS4-hr-WgQ" firstAttribute="centerY" secondItem="P4z-tf-ZEW" secondAttribute="centerY" id="ycP-uH-srd"/>

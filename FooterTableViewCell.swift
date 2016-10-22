@@ -18,6 +18,7 @@ class FooterTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        initUI()
         
     }
 
