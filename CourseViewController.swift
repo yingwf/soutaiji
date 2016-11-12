@@ -19,6 +19,9 @@ protocol UpdateLessonListDelegate {
 class CourseViewController: UIViewController,UITableViewDelegate,UITableViewDataSource, UpdateLessonListDelegate {
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
+    
     var coach: CoachInfo?
     var lessons = [LessonInfo]()
     var mPage = 1
@@ -43,8 +46,7 @@ class CourseViewController: UIViewController,UITableViewDelegate,UITableViewData
         self.tableView.mj_footer = MJRefreshBackNormalFooter(refreshingTarget: self, refreshingAction: #selector(upPullRefresh))
         
         updateLessonList()
-        let username = userInfoStore.userName
-        createButton.hidden = coach?.user_Name != username
+        createButton.hidden = coach?.user_Name != userInfoStore.userName
     }
     
     func updateLessonList() {

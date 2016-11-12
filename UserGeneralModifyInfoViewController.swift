@@ -107,7 +107,10 @@ class UserGeneralModifyInfoViewController: UIViewController,UIPickerViewDelegate
         phoneField.text = userinfo.tel
         areaField.text = userinfo.appCityStr
         sexField.text = userinfo.sex
-        birthdayField.text = (userinfo.birthday! as NSString).substringToIndex(10)
+        if let birthday = userinfo.birthday as? NSString where birthday.length >= 10 {
+            birthdayField.text = birthday.substringToIndex(10)
+        }
+        
         self.cityId = userinfo.appCity
     }
     
@@ -252,14 +255,14 @@ class UserGeneralModifyInfoViewController: UIViewController,UIPickerViewDelegate
             }
         }
         //获取图片类型
-        let urlQuery = info[UIImagePickerControllerReferenceURL]?.query
-        let paramArray = urlQuery!!.componentsSeparatedByString("&")
-        for index in 0 ... paramArray.count - 1 {
-            if paramArray[index].hasPrefix("ext=") {
-                self.imageType = (paramArray[index] as NSString).substringFromIndex(4)
-            }
-        }
-            
+//        let urlQuery = info[UIImagePickerControllerReferenceURL]?.query
+//        let paramArray = urlQuery!!.componentsSeparatedByString("&")
+//        for index in 0 ... paramArray.count - 1 {
+//            if paramArray[index].hasPrefix("ext=") {
+//                self.imageType = (paramArray[index] as NSString).substringFromIndex(4)
+//            }
+//        }
+        
         self.imagePicker.dismissViewControllerAnimated(true, completion: nil)
         
     }
@@ -289,34 +292,24 @@ class UserGeneralModifyInfoViewController: UIViewController,UIPickerViewDelegate
         
         let url = uploadFile
 
-        if self.headImage == nil {
-            let alertView = UIAlertController(title: nil, message: "请选择头像", preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: "确定", style: .Default){ (UIAlertAction) -> Void in
-                return
-            }
-            alertView.addAction(okAction)
-            self.presentViewController(alertView, animated: false, completion: nil)
+        guard let headImage = self.headImage else {
+            displayAlertControllerWithMessage("请选择头像")
             return
         }
-        
-        
         
         let inputElement = [userNameField,sexField,birthdayField,areaField,phoneField]
         let hintArray = ["请输入姓名","请选择性别","请选择出生日期","请选择所在地区","请输入手机号码"]
         
-        for index in 0...4{
-            guard !inputElement[index].text!.isEmpty else{
-                let alertView = UIAlertController(title: nil, message: hintArray[index], preferredStyle: .Alert)
-                let okAction = UIAlertAction(title: "确定", style: .Default, handler: nil)
-                alertView.addAction(okAction)
-                self.presentViewController(alertView, animated: false, completion: nil)
+        for index in 0...4 {
+            guard !inputElement[index].text!.isEmpty else {
+                displayAlertControllerWithMessage(hintArray[index])
                 return
             }
         }
         
         MBProgressHUD.showHUDAddedTo(self.view, animated: true)
         //获取图片数据
-        let imageData = UIImageJPEGRepresentation(self.headImage!.image!, 0.2)
+        let imageData = UIImageJPEGRepresentation(headImage.image!, 0.2)
         self.imageContent = imageData?.base64EncodedStringWithOptions(.EncodingEndLineWithLineFeed)
         
         let parameters =  ["username":username,"password":password,"userType":userType,"fileext":"jpg", "filetype":1,"content":self.imageContent!] as [String : AnyObject]
@@ -327,23 +320,27 @@ class UserGeneralModifyInfoViewController: UIViewController,UIPickerViewDelegate
     func praseUploadFileResult(json: SwiftyJSON.JSON){
         
         if json["success"].boolValue {
-            self.imageUrl = json["url"].string
+            guard let imageUrl = json["url"].string else {
+                displayAlertControllerWithMessage("上传头像失败")
+                return
+            }
+            guard let birthday = self.birthdayField.text?.getDateByFormatString("yyyy-MM-dd") else {
+                displayAlertControllerWithMessage("请选择出生日期")
+                return
+            }
+            
+            self.birthday = birthday
+            self.imageUrl = imageUrl
             let url = modifyUser
             
-            self.birthday = self.birthdayField.text?.getDateByFormatString("yyyy-MM-dd")
-            
-            
-            let parameters =  ["username":username,"password":password,"userType":userType,"name":self.userNameField.text!,"tel":self.phoneField.text!,"sex":sexField.text!,"birthday": self.birthday! , "appCity": self.cityId!,"photo":self.imageUrl! ] as [String : AnyObject]
+            let parameters =  ["username":username,"password":password,"userType":userType,"name":self.userNameField.text!,"tel":self.phoneField.text!,"sex":sexField.text!,"birthday": birthday , "appCity": self.cityId!,"photo":imageUrl ] as [String : AnyObject]
             
             //头像上传成功后，再次提交信息
             doRequest(url, parameters: parameters, praseMethod: praseModifyResult)
             
         }else{
             MBProgressHUD.hideHUDForView(self.view, animated: true)
-            let alert = UIAlertView()
-            alert.message = "上传头像失败"
-            alert.addButtonWithTitle("确定")
-            alert.show()
+            displayAlertControllerWithMessage("上传头像失败")
         }
     }
 
@@ -352,7 +349,7 @@ class UserGeneralModifyInfoViewController: UIViewController,UIPickerViewDelegate
         let status = json["success"].boolValue
         if status {
             
-            let alertView = UIAlertController(title: "提醒", message: "完善信息完成", preferredStyle: .Alert)
+            let alertView = UIAlertController(title: nil, message: "完善信息完成", preferredStyle: .Alert)
             let okAction = UIAlertAction(title: "确定", style: .Default) {
                 action in
                 if self.isModify {
@@ -373,13 +370,9 @@ class UserGeneralModifyInfoViewController: UIViewController,UIPickerViewDelegate
             alertView.addAction(okAction)
             self.presentViewController(alertView, animated: false, completion: nil)
             
-            
         }else{
-            let alertView = UIAlertController(title: "提醒", message: "信息上传失败", preferredStyle: .Alert)
-            let okAction = UIAlertAction(title: "确定", style: .Default, handler: nil)
-            alertView.addAction(okAction)
-            self.presentViewController(alertView, animated: false, completion: nil)
-
+            displayAlertControllerWithMessage("信息上传失败")
+            return
         }
     }
 

@@ -15,8 +15,7 @@ class BuyContactViewController: UIViewController,UICollectionViewDelegate,UIColl
     let reuseIdentifier = "BuyContactCollectionViewCell"
     let contactNumberArray = ["半年","一年"]
     let contactFeeArray = [600, 1000]
-    var currentIndex = 0
-    
+    var currentIndex = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +36,9 @@ class BuyContactViewController: UIViewController,UICollectionViewDelegate,UIColl
         self.collectionView.collectionViewLayout = layout
         self.collectionView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         
-        
-        
         self.setBackButton()
+        
+        
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -84,10 +83,15 @@ class BuyContactViewController: UIViewController,UICollectionViewDelegate,UIColl
     
     @IBAction func gotoPay(sender: AnyObject) {
         
+        guard currentIndex >= 0 else {
+            displayAlertControllerWithMessage("请选择会员期限")
+            return
+        }
+        
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("PayViewController") as! PayViewController
         vc.payType = .Vip
         vc.productName = "购买会员（\(contactNumberArray[currentIndex])期）"
-        vc.orderFee = contactFeeArray[currentIndex]
+        vc.orderFee = Float(contactFeeArray[currentIndex])
         vc.month = currentIndex == 0 ? 6 : 12
         
         self.navigationController?.pushViewController(vc, animated: true)

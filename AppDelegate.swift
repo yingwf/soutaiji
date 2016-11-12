@@ -9,7 +9,7 @@
 import UIKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, WXApiDelegate {
 
     var window: UIWindow?
 
@@ -17,6 +17,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         userInfoStore = UserDefaultsUtil.loadUserInfo()
+        WXApi.registerApp("wxed773271e809777d")
+        return true
+    }
+    
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool{
+        
+        WXApi.handleOpenURL(url, delegate:self)
+        return true
+    }
+    
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool{
+        
+        if url.host == "safepay" {
+            AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: { dic in
+                print(dic)
+            })
+        } else {
+            return WXApi.handleOpenURL(url, delegate:self)
+        }
+        
+        return true
+    }
+    
+    // for 9.0
+    func application(app: UIApplication, openURL url: NSURL, options: [String : AnyObject]) -> Bool {
+        if url.host == "safepay" {
+            AlipaySDK.defaultService().processOrderWithPaymentResult(url, standbyCallback: AliPayController.resultHandlerBlock)
+        } else {
+            return WXApi.handleOpenURL(url, delegate:self)
+        }
+        
         return true
     }
 

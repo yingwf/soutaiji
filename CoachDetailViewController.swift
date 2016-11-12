@@ -25,8 +25,12 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
     var coachInfo: CoachInfo?
     var teaching: Teaching?
     var lessons = [LessonInfo]()
+    var remarks = [UserRemark]()
     
+
     var selectCoachMode = false
+    
+    @IBOutlet weak var selectButtonHeight: NSLayoutConstraint!
 
     @IBOutlet weak var selectCoachButton: UIButton!
     
@@ -36,7 +40,13 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.setBackButton()
         
-        selectCoachButton.hidden = !selectCoachMode
+        if !selectCoachMode {
+            selectCoachButton.hidden = true
+            selectButtonHeight.constant = 0
+        } else {
+            selectCoachButton.hidden = false
+            selectButtonHeight.constant = 44
+        }
         
         self.tableView.separatorStyle = .None
         self.tableView.scrollsToTop = true
@@ -52,23 +62,18 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
         self.tableView.registerNib(UINib(nibName: "CoachQualificationTableViewCell", bundle: nil), forCellReuseIdentifier: qualificationCell)
         self.tableView.registerNib(UINib(nibName: "HonorTableViewCell", bundle: nil), forCellReuseIdentifier: honorCell)
         self.tableView.registerNib(UINib(nibName: "WebTableViewCell", bundle: nil), forCellReuseIdentifier: WebTableViewCell.id)
+        self.tableView.registerNib(UINib(nibName: "VideoTableViewCell", bundle: nil), forCellReuseIdentifier: VideoTableViewCell.id)
 
-        self.tableView.estimatedRowHeight = 130.0
+        self.tableView.estimatedRowHeight = 140.0
         self.tableView.rowHeight =  UITableViewAutomaticDimension
         
-        
-        let screenWidth = UIScreen.mainScreen().bounds.size.width
         headView.frame = CGRect(x: 0, y: 0, width: screenWidth, height: 176)
         headView.delegate = self
         self.tableView.tableHeaderView = headView
         
         praseClubInfo()
         getLessons()
-
-        
-//        let url = getClubInfo
-//        let parameters =  ["clubId": clubId] as [String: AnyObject]
-//        doRequest(url, parameters: parameters, praseMethod: praseClubInfo)
+        getRemarkList()
     }
     
     func praseClubInfo() {
@@ -95,6 +100,29 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
         self.navigationItem.title = coachInfo?.name
         
         self.tableView.reloadData()
+    }
+    
+    func getRemarkList() {
+        guard let jlId = coachInfo?.id else {
+            return
+        }
+        let url = getRemarkListForJl
+        
+        let username = userInfoStore.userName
+        let password = encryptPassword(userInfoStore.password)
+        let userType = userInfoStore.userType
+        
+        let parameters =  [ "username":username, "password":password,"userType":userType,  "pageNo":1 ,"pageSize":100, "jlId":jlId ] as [String : AnyObject]
+        
+        doRequest(url, parameters: parameters, praseMethod: praseRemarkList)
+        
+    }
+    
+    func praseRemarkList(json: SwiftyJSON.JSON) {
+        if json["success"].boolValue, let list = json["remarkList"].array where list.count > 0 {
+            remarks = list.map { UserRemark(json: $0) }
+            tableView.reloadSections(NSIndexSet(index: 6), withRowAnimation: .Automatic)
+        }
     }
     
     
@@ -208,8 +236,11 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.title.text = "视频展示"
                 cell.selectionStyle = .None
                 return cell
+            } else if indexPath.row == 1 {
+                let cell = tableView.dequeueReusableCellWithIdentifier(VideoTableViewCell.id, forIndexPath: indexPath) as! VideoTableViewCell
+                cell.dataBind(self, videoUrl: coachInfo?.video ?? "")
+                return cell
             }
-        //todo:add video
             
         case 5:
             if indexPath.row == 0 {
@@ -241,12 +272,17 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.title.text = "教练评价"
                 cell.selectionStyle = .None
                 return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(appraiseCell, forIndexPath: indexPath) as! ClubAppraiseTableViewCell
+                cell.dataBindWithUserRemark(self.remarks[indexPath.row - 1])
+                return cell
             }
             
         case 7:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(footerCell, forIndexPath: indexPath) as! FooterTableViewCell
                 cell.selectionStyle = .None
+                cell.initUI(self, coach: self.coachInfo, club: nil, lesson: nil)
                 return cell
             }
             
@@ -285,7 +321,10 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
             return 2
             
         case 4:
-            return 1
+            if coachInfo!.video!.isEmpty {
+                return 0
+            }
+            return 2
             
         case 5:
             var count = 0
@@ -301,6 +340,13 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
             }
             return count
             
+        case 6:
+            if remarks.count == 0 {
+                return 0
+            } else {
+                return remarks.count + 1
+            }
+            
         default:
             return 1
         }
@@ -308,6 +354,43 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        switch section {
+        case 1:
+            if coachInfo?.publish != nil && coachInfo!.publish!.isEmpty {
+                return 0
+            }
+        case 2:
+            if lessons.count == 0 {
+                return 0
+            }
+        case 3:
+            if coachInfo!.content!.isEmpty {
+                return 0
+            }
+        case 4:
+            if coachInfo!.video!.isEmpty {
+                return 0
+            }
+        case 5:
+            var count = 0
+            for ry in [coachInfo?.ry1,coachInfo?.ry2,coachInfo?.ry3,coachInfo?.ry4] {
+                if let clubry = ry where !clubry.isEmpty {
+                    count += 1
+                } else {
+                    break
+                }
+            }
+            if count == 0 {
+                return 0
+            }
+        case 6:
+            if remarks.count == 0 {
+                return 0
+            }
+        default:
+            return 5
+        }
+        
         return 5
     }
     
@@ -319,7 +402,6 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
         } else {
             view.backgroundColor = UIColor(hex: 0xEFEFEF)
         }
-        
         return view
         
     }
@@ -340,7 +422,7 @@ class CoachDetailViewController: UIViewController, UITableViewDelegate, UITableV
         
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("PayViewController") as! PayViewController
         vc.productName = "\(coachInfo!.name!)（教学指正）"
-        vc.orderFee = self.teaching?.fee
+        vc.orderFee = Float(self.teaching?.fee ?? 0)
         vc.payType = .Teaching
         vc.coach = self.coachInfo
         vc.teaching = self.teaching

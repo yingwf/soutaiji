@@ -32,32 +32,23 @@ let messageInSound: SystemSoundID = {
 
 class CoachTeachingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UITextViewDelegate {
 
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var nobodyLabel: UILabel!
+    @IBOutlet weak var movieView: UIView!
+    @IBOutlet weak var finishButton: UIButton!
+    
     var url: String?
     var playerController = AVPlayerViewController()
     var player = AVPlayer()
-    
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    @IBOutlet weak var nobodyLabel: UILabel!
-    
-    @IBOutlet weak var movieView: UIView!
-    
-    @IBOutlet weak var finishButton: UIButton!
-    
-    
     var teaching: Teaching?
+    var teachingIndex: Int?
     var teachingRecords = [TeachingRecord]()
-    
     var toolBarView: LGToolBarView!
     var shareView: LGShareMoreView!
     var recordIndicatorView: LGRecordIndicatorView!
-    
     var recorder: LGAudioRecorder!
-    //var autoPlayer: LGAudioPlayer!
-
     var toolBarConstranit: NSLayoutConstraint!
-    
+    var delegate: DeleteQuestionDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,7 +132,33 @@ class CoachTeachingViewController: UIViewController, UITableViewDataSource, UITa
         
     }
     
+    func deleteTeaching() {
+        guard let id = teaching?.id else {
+            return
+        }
+        MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        let url = deleteTeachingRequest
+        let params = ["username": userInfoStore.userName  ,"password": encryptPassword(userInfoStore.password), "userType": userInfoStore.userType , "teachId": id ] as! [String : AnyObject]
+        doRequest(url, parameters: params , praseMethod: praseDeleteResult)
+    }
     
+    func praseDeleteResult(json: SwiftyJSON.JSON) {
+        MBProgressHUD.hideHUDForView(self.view, animated: true)
+        guard let success = json["success"].bool where success == true else {
+            let message = json["message"].string ?? "出现网络错误"
+            displayAlertControllerWithMessage(message)
+            return
+        }
+        guard let teachingIndex = self.teachingIndex else {
+            return
+        }
+        let okAction = UIAlertAction(title: "确定", style: .Cancel) {
+            action in
+            self.delegate?.deleteQuestion(teachingIndex)
+            self.navigationController?.popViewControllerAnimated(true)
+        }
+        displayAlertController(nil, message: "删除成功", actions: [okAction])
+    }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -163,6 +180,7 @@ class CoachTeachingViewController: UIViewController, UITableViewDataSource, UITa
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCellWithIdentifier(QuestionToDoTableViewCell.id, forIndexPath: indexPath) as! QuestionToDoTableViewCell
             cell.dataBind(teaching!)
+            cell.editButton.addTarget(self, action: #selector(deleteTeaching), forControlEvents: .TouchUpInside)
             return cell
         }
         

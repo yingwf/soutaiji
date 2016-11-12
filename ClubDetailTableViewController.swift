@@ -19,10 +19,10 @@ class ClubDetailTableViewController: UITableViewController {
     let courseCell = "CourseTableViewCell"
     let qualificationCell = "CoachQualificationTableViewCell"
     let honorCell = "HonorTableViewCell"
-    var clubId = 2
     var headView = YYScrollView()
     var clubInfo: ClubInfo?
     var lessons = [LessonInfo]()
+    var remarks = [UserRemark]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,8 +107,8 @@ class ClubDetailTableViewController: UITableViewController {
     
     func praseRemarkList(json: SwiftyJSON.JSON) {
         if json["success"].boolValue, let list = json["remarkList"].array where list.count > 0 {
-            //lessons = list.map { LessonInfo(json: $0) }
-            tableView.reloadSections(NSIndexSet(index: 2), withRowAnimation: .Automatic)
+            remarks = list.map { UserRemark(json: $0) }
+            tableView.reloadSections(NSIndexSet(index: 7), withRowAnimation: .Automatic)
         }
     }
     
@@ -278,12 +278,17 @@ class ClubDetailTableViewController: UITableViewController {
                 cell.more.hidden = true
                 cell.selectionStyle = .None
                 return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier(appraiseCell, forIndexPath: indexPath) as! ClubAppraiseTableViewCell
+                cell.dataBindWithUserRemark(self.remarks[indexPath.row - 1])
+                return cell
             }
             
         case 8:
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCellWithIdentifier(footerCell, forIndexPath: indexPath) as! FooterTableViewCell
                 cell.selectionStyle = .None
+                cell.initUI(self, coach: nil, club: self.clubInfo, lesson: nil)
                 return cell
             }
             
@@ -357,6 +362,12 @@ class ClubDetailTableViewController: UITableViewController {
             }
             return count
             
+        case 7:
+            if remarks.count == 0 {
+                return 0
+            } else {
+                return remarks.count + 1
+            }
         default:
             break
         }
@@ -364,9 +375,58 @@ class ClubDetailTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 8 {
+        switch section {
+        case 1:
+            if clubInfo!.publish!.isEmpty  {
+                return 0
+            }
+        case 2:
+            if lessons.count == 0 {
+                return 0
+            }
+        case 3:
+            if clubInfo!.timeTable!.isEmpty {
+                return 0
+            }
+        case 4:
+            if clubInfo!.content!.isEmpty {
+                return 0
+            }
+        case 5:
+            var count = 0
+            if clubInfo?.jl1photo != "" ||  clubInfo?.jl1name != "" {
+                count += 1
+            }
+            if clubInfo?.jl2photo != "" ||  clubInfo?.jl2name != "" {
+                count += 1
+            }
+            if count == 0 {
+                return 0
+            }
+        case 6:
+            var count = 0
+            for ry in [clubInfo?.ry1,clubInfo?.ry2,clubInfo?.ry3,clubInfo?.ry4] {
+                if let clubry = ry where !clubry.isEmpty {
+                    count += 1
+                } else {
+                    break
+                }
+            }
+            if count == 0 {
+                return 0
+            }
+            
+        case 7:
+            if remarks.count == 0 {
+                return 0
+            }
+        case 8:
             return 0
+            
+        default:
+            return 5
         }
+        
         return 5
     }
     

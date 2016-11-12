@@ -63,7 +63,6 @@ class CourseDetailTableViewController: UITableViewController, UpdateLessonInfoDe
             startDate.text = "\(startDateSub) - \(endDateSub)"
         }
         
-        
         detailTime.text = lesson?.detailTime
         address.text = lesson?.location
         classDescription.text = lesson?.description
@@ -154,7 +153,7 @@ extension CourseDetailTableViewController {
             return cell!
         case (6,1):
             let cell = tableView.dequeueReusableCellWithIdentifier(FooterTableViewCell.identifier) as? FooterTableViewCell
-            cell!.initUI()
+            cell?.initUI(self, coach: nil, club: nil, lesson: self.lesson)
             cell?.selectionStyle = .None
             return cell!
         default:
@@ -185,7 +184,12 @@ extension CourseDetailTableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 1:
-            return countCoachCount() + 2
+            if userType == 1 {
+                let count = countCoachCount()
+                return count == 0 ? 0 : count + 2
+            } else {
+                return 0
+            }
         case 4:
             return 3
         case 5:

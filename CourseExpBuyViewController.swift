@@ -33,6 +33,16 @@ class CourseExpBuyViewController: UIViewController, UITextFieldDelegate {
         self.setBackButton()
         dataBind()
         expTime.delegate = self
+        setEndEdit()
+    }
+    
+    func setEndEdit() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(endEdit(_:)))
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    func endEdit(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
     }
     
     func dataBind() {

@@ -56,6 +56,8 @@ let getTeachingApplication = ROOTURL + "getTeachingApplication.htm"
 
 let askForTeach = ROOTURL + "askForTeaching.htm"
 
+let modifyTeachingRequest = ROOTURL + "modifyTeachingRequest.htm"
+
 let createJlLesson = ROOTURL + "createJlLesson.htm"
 
 let getJlLessonList = ROOTURL + "getJlLessonList.htm"
@@ -88,11 +90,26 @@ let applyTeachingUrl = ROOTURL + "applyTeaching.htm"
 
 let addRemark = ROOTURL + "addRemark.htm"
 
+let addEORemark = ROOTURL + "addEORemark.htm"
+
 let buyVIP = ROOTURL + "buyVIP.htm"
 
 let orderLesson = ROOTURL + "orderLesson.htm"
 
 let getRemarkListForHg = ROOTURL + "getRemarkListForHg.htm"
 
+let getRemarkListForNormalUser = ROOTURL + "getRemarkListForNormalUser.htm"
+
+let getRemarkListForJl = ROOTURL + "getRemarkListForJl.htm"
+
+let deleteTeachingRequest = ROOTURL + "deleteTeachingRequest.htm"
+
+let ALIPAY_CALLBACK = ROOTURL + "alipayCallback.htm"
+
+let getPaySign = ROOTURL + "getPaySign.htm"
+
+let getEOListForNormalUser = ROOTURL + "getEOListForNormalUser.htm"
+
+let getVipVideoList = ROOTURL + "getVipVideoList.htm"
 
 

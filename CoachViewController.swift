@@ -291,9 +291,9 @@ class CoachViewController: UIViewController,UICollectionViewDataSource,UICollect
         
         if let id = self.coachInfoArray[indexPath.row].appCity {
             if let city = cityList[id]{
-                cell.city.text = "所在城市:\(city.name!)"
+                cell.city.text = "城市:\(city.name!)"
             } else {
-                cell.city.text = "所在城市:"
+                cell.city.text = "城市:"
             }
         }
         if let age = self.coachInfoArray[indexPath.row].age {

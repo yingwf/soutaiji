@@ -14,13 +14,12 @@ class UserGeneralViewController: UIViewController {
     @IBOutlet weak var photo: UIImageView!
     @IBOutlet weak var name: UILabel!
     @IBOutlet weak var userName: UILabel!
-    @IBOutlet weak var yue: UILabel!
     
-    @IBOutlet weak var balanceView: UIView!
     @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var orderView: UIView!
     @IBOutlet weak var vipView: UIView!
-
+    @IBOutlet weak var vipLabel: UILabel!
+    
     var userInfo: UserInfo?
     
     override func viewDidLoad() {
@@ -30,19 +29,13 @@ class UserGeneralViewController: UIViewController {
         }
         self.name.text = self.userInfo?.name
         self.userName.text = self.userInfo?.user_Name
-        if let balance = self.userInfo?.balance {
-            self.yue.text = "\(balance)"
-        }
+        self.vipLabel.text = userInfo?.isVIP == 1 ? "已开通" : "未开通"
         
         userDetailLabel.userInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action: #selector(userDetail))
         userDetailLabel.addGestureRecognizer(tap)
         
         GeneralUserInfoStore = self.userInfo
-
-        balanceView.userInteractionEnabled = true
-        let balanceTap = UITapGestureRecognizer(target: self, action: #selector(gotoBalance(_:)))
-        balanceView.addGestureRecognizer(balanceTap)
         
         commentView.userInteractionEnabled = true
         let commentTap = UITapGestureRecognizer(target: self, action: #selector(gotoComment(_:)))
@@ -51,6 +44,10 @@ class UserGeneralViewController: UIViewController {
         vipView.userInteractionEnabled = true
         let vipTap = UITapGestureRecognizer(target: self, action: #selector(gotoBuyVIP(_:)))
         vipView.addGestureRecognizer(vipTap)
+        
+        orderView.userInteractionEnabled = true
+        let eoTap = UITapGestureRecognizer(target: self, action: #selector(gotoEoList(_:)))
+        orderView.addGestureRecognizer(eoTap)
         
     }
 
@@ -86,16 +83,10 @@ class UserGeneralViewController: UIViewController {
         let buyContactViewController = self.storyboard?.instantiateViewControllerWithIdentifier("BuyContactViewController") as! BuyContactViewController
         self.navigationController?.pushViewController(buyContactViewController, animated: true)
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func gotoEoList(sender: UITapGestureRecognizer) {
+        let vc = self.storyboard?.instantiateViewControllerWithIdentifier("MyOrderListTableViewController") as! MyOrderListTableViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    */
 
 }

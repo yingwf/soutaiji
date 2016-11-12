@@ -31,6 +31,16 @@ class CourseBuyViewController: UIViewController {
         // Do any additional setup after loading the view.
         self.setBackButton()
         dataBind()
+        setEndEdit()
+    }
+    
+    func setEndEdit() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(endEdit(_:)))
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    func endEdit(sender: UITapGestureRecognizer) {
+        self.view.endEditing(true)
     }
     
     func dataBind() {

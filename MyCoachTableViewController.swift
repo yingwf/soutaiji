@@ -22,20 +22,22 @@ class MyCoachTableViewController: UITableViewController {
     @IBOutlet weak var paiming: UILabel!
     @IBOutlet weak var shouru: UILabel!
     
-    @IBOutlet weak var yue: UILabel!
     @IBOutlet weak var pingjia: UILabel!
     
     var userInfo: CoachInfo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let photo = userInfo?.photo {
-            self.photo.sd_setImageWithURL(NSURL(string: photo))
+        if let pic1 = userInfo?.pic1 {
+            self.photo.sd_setImageWithURL(NSURL(string: pic1))
         }
-        self.renzheng.hidden = (userInfo?.renzheng == 1) ? false:true
+        self.renzheng.hidden = (userInfo?.renzheng != 1)
         self.name.text = userInfo?.name
         self.userName.text = userInfo?.user_Name
         self.name.sizeToFit()
+        self.visitCount.text = String(userInfo?.visitCount ?? 0)
+        self.paiming.text = String(userInfo?.paixu ?? 0)
+        self.shouru.text = String(userInfo?.balance ?? 0)
         
         self.tableView.tableFooterView = UIView()
     }
@@ -52,7 +54,7 @@ class MyCoachTableViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
+        if section == 0 || section == 1 {
             return 2
         }
         return 3
@@ -86,11 +88,12 @@ class MyCoachTableViewController: UITableViewController {
             userGeneralDetailViewController.userType = 2
             userGeneralDetailViewController.userCoach = self.userInfo
             self.navigationController?.pushViewController(userGeneralDetailViewController, animated: true)
+//        case (1,1):
+//            let moneyViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MoneyViewController")as! MoneyViewController
+//            self.navigationController?.pushViewController(moneyViewController, animated: true)
         case (1,1):
-            let moneyViewController = self.storyboard?.instantiateViewControllerWithIdentifier("MoneyViewController")as! MoneyViewController
-            self.navigationController?.pushViewController(moneyViewController, animated: true)
-        case (1,2):
             let remarkViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RemarkViewController")as! RemarkViewController
+            remarkViewController.coachInfo = self.userInfo
             self.navigationController?.pushViewController(remarkViewController, animated: true)
         case (2,1):
             let courseViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CourseViewController")as! CourseViewController

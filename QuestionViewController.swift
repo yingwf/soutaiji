@@ -14,8 +14,11 @@ import SwiftyJSON
 protocol UpdateQuestionInfoDelegate {
     func updateQuestionInfo(teaching: Teaching, index: Int)
 }
+protocol DeleteQuestionDelegate {
+    func deleteQuestion(index: Int)
+}
 
-class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UpdateQuestionInfoDelegate {
+class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate, UpdateQuestionInfoDelegate, DeleteQuestionDelegate {
     @IBOutlet var tableView: UITableView!
 
     var imagePicker = UIImagePickerController()
@@ -51,7 +54,6 @@ class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDa
             let navLoginViewController = self.storyboard?.instantiateViewControllerWithIdentifier("nav_LoginViewController") as! UINavigationController
             let loginViewController = navLoginViewController.childViewControllers.first as! LoginViewController
             loginViewController.forLoginHint = true
-            
             self.navigationController?.presentViewController(navLoginViewController, animated: true, completion: nil)
         }
         
@@ -83,7 +85,7 @@ class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDa
         default:
             break
         }
-
+        
     }
     
     func segmentDidchange(segmented: UISegmentedControl){
@@ -205,9 +207,6 @@ class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDa
                 break
             }
             presentViewController(self.imagePicker, animated: true, completion: nil)
-            
-        
-        
     }
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]){
@@ -247,6 +246,8 @@ class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDa
             if userType == 0 || userType == 1 {
                 let questionToDoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("QuestionToDoViewController")as! QuestionToDoViewController
                 questionToDoViewController.teaching = self.teachings[indexPath.row]
+                questionToDoViewController.teachingIndex = indexPath.row
+                questionToDoViewController.delegate = self
                 self.navigationController?.pushViewController(questionToDoViewController, animated: true)
             } else if userType == 2 {
                 let coachToDoViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CoachToDoViewController")as! CoachToDoViewController
@@ -259,6 +260,8 @@ class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDa
         case 1,2,3:
             let coachTeachingViewController = self.storyboard?.instantiateViewControllerWithIdentifier("CoachTeachingViewController")as! CoachTeachingViewController
             coachTeachingViewController.teaching = self.teachings[indexPath.row]
+            coachTeachingViewController.teachingIndex = indexPath.row
+            coachTeachingViewController.delegate = self
             self.navigationController?.pushViewController(coachTeachingViewController, animated: true)
         default:
             break
@@ -271,7 +274,14 @@ class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDa
         }
         self.teachings[index] = teaching
         self.tableView.reloadRowsAtIndexPaths([ NSIndexPath(forRow:index, inSection:0) ], withRowAnimation: .Automatic)
-        
+    }
+    
+    func deleteQuestion(index: Int) {
+        guard index >= 0 && index < teachings.count else {
+            return
+        }
+        self.teachings.removeAtIndex(index)
+        self.tableView.reloadData()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -281,14 +291,10 @@ class QuestionViewController: UIViewController,UITableViewDelegate,UITableViewDa
         return cell
     }
     
-    
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 
         return 128
     }
-
-
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

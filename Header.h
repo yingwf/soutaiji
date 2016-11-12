@@ -10,3 +10,5 @@
 #import "RadioButton.h"
 #import <CommonCrypto/CommonDigest.h>
 #import "BRPlaceholderTextView.h"
+#import "WXApi.h"
+#import <AlipaySDK/AlipaySDK.h>

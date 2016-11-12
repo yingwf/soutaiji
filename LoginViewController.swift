@@ -163,6 +163,7 @@ class LoginViewController: UIViewController,UITextFieldDelegate {
             case 0:
                 //general user
                 let userInfo = UserInfo(json: json["user"])
+                userInfoStore.isVip = userInfo.isVIP ?? 0
                 
                 let userViewController = self.storyboard?.instantiateViewControllerWithIdentifier("UserGeneralViewController") as! UserGeneralViewController
                 userViewController.userInfo = userInfo

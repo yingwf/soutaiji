@@ -18,17 +18,25 @@ class AddRemarkViewController: UIViewController {
     @IBOutlet weak var remarkTextView: BRPlaceholderTextView!
     @IBOutlet weak var remarkView: StarView!
     
-    
     var teaching: Teaching?
+    var eoList: EoList?
+    var isEoList = false //订单评价，教学指正评价
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        remarkTextView.placeholder = "请对本次指导您的老师进行评价"
+        remarkTextView.placeholder = isEoList ? "请对本次学习体验进行评价" : "请对本次指导您的老师进行评价"
         setBackButton()
-        getCoach()
-        
+        if isEoList {
+            self.navigationItem.title = "评价订单"
+            let pic = eoList?.expOrder?.actionType == 1 ? eoList?.user?.pic : eoList?.lesson?.pic
+            headImage.sd_setImageWithURL(NSURL(string: pic ?? ""))
+            userName.text = eoList?.expOrder?.actionType == 1 ? eoList?.user?.name : eoList?.lesson?.name
+                
+        } else {
+            getCoach()
+        }
     }
     
     func getCoach() {
@@ -60,13 +68,28 @@ class AddRemarkViewController: UIViewController {
     @IBAction func finishToRemark(sender: AnyObject) {
         let stars = remarkView.star
         let content = remarkTextView.text
-        guard let teachId = teaching?.id else {
-            return
-        }
         
-        let url = addRemark
-        let params = [ "username":userInfoStore.userName, "password": encryptPassword(userInfoStore.password), "userType": userInfoStore.userType, "teachId": teachId, "remarkStars": stars, "remarkContent":content ] as! [String : AnyObject]
-        doRequest(url, parameters: params , praseMethod: praseRemarkResult)
+        if isEoList {
+            //订单评价
+            guard let expOrderId = eoList?.expOrder?.id else {
+                return
+            }
+            let url = addEORemark
+            let params = [ "username":userInfoStore.userName, "password": encryptPassword(userInfoStore.password), "userType": userInfoStore.userType, "expOrderId": expOrderId, "stars": stars, "content":content ] as! [String : AnyObject]
+            doRequest(url, parameters: params , praseMethod: praseRemarkResult)
+            
+            
+        } else {
+            //教练评价
+            guard let teachId = teaching?.id else {
+                return
+            }
+            
+            let url = addRemark
+            let params = [ "username":userInfoStore.userName, "password": encryptPassword(userInfoStore.password), "userType": userInfoStore.userType, "teachId": teachId, "remarkStars": stars, "remarkContent":content ] as! [String : AnyObject]
+            doRequest(url, parameters: params , praseMethod: praseRemarkResult)
+        }
+
     }
     
     func praseRemarkResult(json: SwiftyJSON.JSON){
@@ -78,7 +101,7 @@ class AddRemarkViewController: UIViewController {
         
         let okAction = UIAlertAction(title: "确定", style: .Default) {action in
             
-            self.navigationController?.popToRootViewControllerAnimated(true)
+            self.navigationController?.popViewControllerAnimated(true)
         }
         
         displayAlertController("完成评价", actions: [okAction])

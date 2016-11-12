@@ -41,7 +41,7 @@ class CoachSearchCollectionViewCell: UICollectionViewCell {
         liupai.text = "流派:\(coach.liupai ?? "")"
         age.text = "年龄:\(coach.age ?? 0)"
         pingjia.text = "评价:\(coach.xuhao ?? "")"
-        city.text = "所在城市:\(coach.appCityStr ?? "")"
+        city.text = "城市:\(coach.appCityStr ?? "")"
         fee.text = "收费:\(coach.money ?? 0)"
         dianji.text = "点击:\(coach.visitCount ?? 0)"
     }

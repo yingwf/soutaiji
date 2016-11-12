@@ -16,13 +16,9 @@ class UserClubViewController: UIViewController {
     @IBOutlet weak var visitCount: UILabel!
     @IBOutlet weak var coachVisit: UILabel!
     @IBOutlet weak var clubVisit: UILabel!
-
-    
-    @IBOutlet weak var yue: UILabel!
+    @IBOutlet weak var userNameTitleLabel: UILabel!
     @IBOutlet weak var pingjia: UILabel!
-    
     @IBOutlet weak var userView: UIView!
-    @IBOutlet weak var balanceView: UIView!
     @IBOutlet weak var commentView: UIView!
     @IBOutlet weak var courseView: UIView!
     @IBOutlet weak var gonggaoView: UIView!
@@ -46,14 +42,11 @@ class UserClubViewController: UIViewController {
         } else {
             self.renzheng.hidden = true
         }
+        userNameTitleLabel.sizeToFit()
         
         userView.userInteractionEnabled = true
         let userTap = UITapGestureRecognizer(target: self, action: #selector(gotoUser(_:)))
         userView.addGestureRecognizer(userTap)
-        
-        balanceView.userInteractionEnabled = true
-        let balanceTap = UITapGestureRecognizer(target: self, action: #selector(gotoBalance(_:)))
-        balanceView.addGestureRecognizer(balanceTap)
         
         commentView.userInteractionEnabled = true
         let commentTap = UITapGestureRecognizer(target: self, action: #selector(gotoComment(_:)))
@@ -83,6 +76,7 @@ class UserClubViewController: UIViewController {
     
     func gotoComment(sender: UITapGestureRecognizer) {
         let remarkViewController = self.storyboard?.instantiateViewControllerWithIdentifier("RemarkViewController")as! RemarkViewController
+        remarkViewController.clubInfo = self.userinfo
         self.navigationController?.pushViewController(remarkViewController, animated: true)
     }
     

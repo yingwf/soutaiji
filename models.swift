@@ -136,6 +136,7 @@ class ClubInfo {
     var jl1username: String?
     var pic1: String?
     var balance: Int?
+    var pic: String?
     var pic5: String?
     var pic4: String?
     var pic3: String?
@@ -201,6 +202,7 @@ class ClubInfo {
         self.szQu = json["szQu"].string
         self.renzheng = json["renzheng"].int
         self.tel = json["tel"].string
+        self.pic = json["pic"].string
         self.jl1name = json["jl1name"].string
         self.ry2 = json["ry2"].string
         self.jl2username = json["jl2username"].string
@@ -293,6 +295,7 @@ class CoachInfo {
     var pic1: String?
     var balance: Int?
     var age: Int?
+    var pic: String?
     var pic5: String?
     var pic4: String?
     var video: String?
@@ -365,6 +368,7 @@ class CoachInfo {
         self.balance = json["balance"].int
         self.age = json["age"].int
         self.pic5 = json["pic5"].string
+        self.pic = json["pic"].string
         self.pic4 = json["pic4"].string
         self.video = json["video"].string
         self.pic3 = json["pic3"].string
@@ -558,4 +562,141 @@ class LessonInfo {
     }
     
 }
+
+class RemarkOld {
+    var remarkStars: Int?
+    var teachingId: Int?
+    var remarkContent: String?
+    var user: UserInfo?
+    var coach: CoachInfo?
+    
+    init(json: SwiftyJSON.JSON) {
+        self.remarkStars = json["remarkStars"].int
+        self.teachingId = json["teachingId"].int
+        self.remarkContent = json["remarkContent"].string
+        self.coach = CoachInfo(json: json["coach"])
+        self.user = UserInfo(json: json["user"])
+    }
+    
+}
+
+class Remark {
+    var id: Int?
+    var version: Int?
+    var userId: Int?
+    var toUserId: Int?
+    var stars: Int?
+    var actionType: Int?
+    var orderId: Int?
+    var remarkType: Int?
+    var toLessonId: Int?
+    var toUserType: Int?
+    var content: String?
+    var remarkTime: String?
+    
+    init(json: SwiftyJSON.JSON) {
+        self.id = json["id"].int
+        self.version = json["version"].int
+        self.userId = json["userId"].int
+        self.toUserId = json["toUserId"].int
+        self.stars = json["stars"].int
+        self.actionType = json["actionType"].int
+        self.orderId = json["orderId"].int
+        self.remarkType = json["remarkType"].int
+        self.toLessonId = json["toLessonId"].int
+        self.toUserType = json["toUserType"].int
+        self.content = json["content"].string
+        self.remarkTime = json["remarkTime"].string
+    }
+}
+
+class UserRemark {
+    var remark: Remark?
+    var user: EoUserInfo?
+    init(json: SwiftyJSON.JSON) {
+        self.remark = Remark(json: json["remark"])
+        if json["userJl"].isExists() {
+            self.user = EoUserInfo(json: json["userJl"])
+        } else if json["userHg"].isExists() {
+            self.user = EoUserInfo(json: json["userHg"])
+        } else if json["user"].isExists() {
+            self.user = EoUserInfo(json: json["user"])
+        }
+    }
+}
+
+class ExpOrder {
+    var status: Int?
+    var toLessonId: Int?
+    var applyTime: String?
+    var actionType: Int?
+    var version: Int?
+    var expTime: String?
+    var id: Int?
+    var toUserType: Int?
+    var price: Int?
+    var toUserId: Int?
+    var userId: Int?
+    var mobile: String?
+    init(json: SwiftyJSON.JSON) {
+        self.status = json["status"].int
+        self.toLessonId = json["toLessonId"].int
+        self.applyTime = json["applyTime"].string
+        self.actionType = json["actionType"].int
+        self.version = json["version"].int
+        self.expTime = json["expTime"].string
+        self.id = json["id"].int
+        self.toUserType = json["toUserType"].int
+        self.price = json["price"].int
+        self.toUserId = json["toUserId"].int
+        self.mobile = json["mobile"].string
+    }
+}
+
+class EoUserInfo {
+    var id: Int?
+    var name: String?
+    var pic: String?
+    init(json: SwiftyJSON.JSON) {
+        self.id = json["id"].int
+        self.name = json["name"].string
+        self.pic = json["pic"].string
+    }
+}
+
+class EoList {
+    var expOrder: ExpOrder?
+    var user: EoUserInfo?
+    var lesson: LessonInfo?
+    var extraOrderInfo: ExtraOrderInfo?
+    init(json: SwiftyJSON.JSON) {
+        self.expOrder = ExpOrder(json: json["expOrder"])
+        
+        if json["userHg"].isExists() {
+            self.user = EoUserInfo(json: json["userHg"])
+        } else  if json["userJl"].isExists() {
+            self.user = EoUserInfo(json: json["userJl"])
+        }
+        
+        if json["lessonHg"].isExists() {
+            self.lesson = LessonInfo(json: json["lessonHg"])
+        } else  if json["lessonJl"].isExists() {
+            self.lesson = LessonInfo(json: json["lessonJl"])
+        }
+        self.extraOrderInfo = ExtraOrderInfo(json: json["extraOrderInfo"])
+    }
+}
+
+class VipVideo {
+    var name: String?
+    var description: String?
+    var url: String?
+    init(json: SwiftyJSON.JSON) {
+        self.name = json["name"].string
+        self.description = json["description"].string
+        self.url = json["url"].string
+    }
+    
+}
+
 

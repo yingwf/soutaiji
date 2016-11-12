@@ -28,12 +28,7 @@ class ClubCourseViewController: UIViewController,UITableViewDelegate,UITableView
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        if userInfoStore.userName == club?.user_Name {
-            createButton.hidden = false
-        } else {
-            createButton.hidden = true
-        }
-        
+        createButton.hidden = club?.user_Name != userInfoStore.userName
         
         self.setBackButton()
         tableView.delegate = self

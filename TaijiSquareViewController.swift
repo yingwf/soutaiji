@@ -31,6 +31,7 @@ class TaijiSquareViewController: UIViewController,UITableViewDelegate,UITableVie
     
     let iconCell = "Icon4TableViewCell"
     let listCell = "ClubRecoTableViewCell"
+    var coachCell: ClubRecoTableViewCell!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,11 +52,46 @@ class TaijiSquareViewController: UIViewController,UITableViewDelegate,UITableVie
         self.tableView.tableHeaderView = headView
         
         //获取滚动图片
-        var url = GET_MARQUESS
+        let url = GET_MARQUESS
         doRequest(url, parameters: nil, praseMethod: praseMarquess)
 
+        initCoachCell()
 
     }
+    
+    func initCoachCell() {
+        coachCell = NSBundle.mainBundle().loadNibNamed("ClubRecoTableViewCell", owner: self, options: nil).last as! ClubRecoTableViewCell
+        //let cell = tableView.dequeueReusableCellWithIdentifier(listCell, forIndexPath: indexPath) as! ClubRecoTableViewCell
+        coachCell.title.text = "教练推介"
+        coachCell.more.userInteractionEnabled = true
+        coachCell.more.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(coachAction)))
+        
+        let width = (screenSize.width - 50)/4 //间隔10
+        for hangIndex in 0...3 {
+            for lieIndex in 0...1 {
+                let view = UIView(frame: CGRect(x: CGFloat(hangIndex) * (width + 10) + 10, y: 41 + (width + 22) * CGFloat(lieIndex), width: width, height: 2 * width + 22))
+                let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: width))
+                imageView.backgroundColor = UIColor(hex: 0xEFEFF4)
+                let label = UILabel(frame: CGRect(x: 0, y: width, width: width, height: 22))
+                label.textAlignment = .Center
+                label.font = UIFont.systemFontOfSize(11)
+                self.coachImages.append(imageView)
+                self.coachLabels.append(label)
+                view.addSubview(label)
+                view.addSubview(imageView)
+                self.coachViews.append(view)
+                coachCell.contentView.addSubview(view)
+                
+                if self.coachInfoArray.count == 0 {
+                    //获取今日推荐教练
+                    let url = getCoachForMainpage
+                    let parameters =  ["count":8] as [String: AnyObject]
+                    doRequest(url, parameters: parameters, praseMethod: praseCoachForMainpage)
+                }
+            }
+        }
+    }
+    
     
     func praseClubForMainpage(json: SwiftyJSON.JSON){
         let status = json["success"].boolValue
@@ -170,36 +206,7 @@ class TaijiSquareViewController: UIViewController,UITableViewDelegate,UITableVie
             returnCell = cell
             
         }else if indexPath.section == 2{
-            let cell = tableView.dequeueReusableCellWithIdentifier(listCell, forIndexPath: indexPath) as! ClubRecoTableViewCell
-            cell.title.text = "教练推介"
-            cell.more.userInteractionEnabled = true
-            cell.more.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(coachAction)))
-            
-            let width = (screenSize.width - 50)/4 //间隔10
-            for hangIndex in 0...3 {
-                for lieIndex in 0...1 {
-                    let view = UIView(frame: CGRect(x: CGFloat(hangIndex) * (width + 10) + 10, y: 41 + (width + 22) * CGFloat(lieIndex), width: width, height: 2 * width + 22))
-                    let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: width, height: width))
-                    imageView.backgroundColor = UIColor(hex: 0xEFEFF4)
-                    let label = UILabel(frame: CGRect(x: 0, y: width, width: width, height: 22))
-                    label.textAlignment = .Center
-                    label.font = UIFont.systemFontOfSize(11)
-                    self.coachImages.append(imageView)
-                    self.coachLabels.append(label)
-                    view.addSubview(label)
-                    view.addSubview(imageView)
-                    self.coachViews.append(view)
-                    cell.contentView.addSubview(view)
-
-                    if self.coachInfoArray.count == 0 {
-                        //获取今日推荐教练
-                        let url = getCoachForMainpage
-                        let parameters =  ["count":8] as [String: AnyObject]
-                        doRequest(url, parameters: parameters, praseMethod: praseCoachForMainpage)
-                    }
-                }
-            }
-            returnCell = cell
+            returnCell = coachCell
         }
         return returnCell
     }

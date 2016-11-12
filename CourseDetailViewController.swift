@@ -19,6 +19,7 @@ class CourseDetailViewController: UIViewController {
     
     @IBOutlet weak var buttomView: UIView!
     @IBOutlet weak var expButton: UIButton!
+    @IBOutlet weak var contentView: UIView!
     
     
     override func viewDidLoad() {
@@ -37,13 +38,13 @@ class CourseDetailViewController: UIViewController {
         
         self.addChildViewController(vc)
         self.view.addSubview(vc.view)
+        vc.view.frame = self.contentView.frame
         
         if userInfoStore.userType != 0 {
             self.buttomView.hidden = true
         } else {
             self.buttomView.hidden = false
             self.view.bringSubviewToFront(buttomView)
-            expButton.setTitle("\(lesson?.expPrice ?? 0)元体验预约", forState: .Normal)
         }
         
     }

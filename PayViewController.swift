@@ -12,7 +12,7 @@ import MBProgressHUD
 
 
 enum PayType: Int {
-    case Teaching = 0, Vip, Lesson, LessonExp
+    case Teaching = 0, Vip, Lesson, LessonExp, EoList
 }
 
 
@@ -25,7 +25,7 @@ class PayViewController: UIViewController {
     
     var orderId: String?
     var productName: String?
-    var orderFee: Int?
+    var orderFee: Float = 0.0
     var month: Int?
     var payType: PayType = .Teaching
     var teaching: Teaching?
@@ -35,6 +35,7 @@ class PayViewController: UIViewController {
     var toUserType: Int?
     var mobile: String?
     var expTime: String?
+    var eoList: EoList?
     
     
     override func viewDidLoad() {
@@ -46,25 +47,29 @@ class PayViewController: UIViewController {
         case .Teaching:
             orderIdLabel.text = teaching?.extraOrderInfo?.uniOrderId
             productNameLabel.text = "\(coach?.name ?? "")（教学指正）"
-            orderFeeLabel.text = "￥\(Float(teaching?.fee ?? 0))元"
+            orderFee = Float(teaching?.fee ?? 0)
             
         case .Vip:
             orderIdLabel.text = orderId
             productNameLabel.text = productName
-            if let orderFee = orderFee {
-                orderFeeLabel.text = "￥\(Float(orderFee))元"
-            }
             
         case .Lesson:
             productNameLabel.text = lesson?.name
-            orderFeeLabel.text = "￥\(Float(lesson?.price ?? 0))元"
+            orderFee = Float(lesson?.price ?? 0)
             
         case .LessonExp:
             productNameLabel.text = lesson?.name
-            orderFeeLabel.text = "￥\(Float(lesson?.expPrice ?? 0))元"
+            orderFee = Float(lesson?.expPrice ?? 0)
+            
+        case .EoList:
+            productNameLabel.text = eoList?.expOrder?.actionType == 1 ? eoList?.user?.name : eoList?.lesson?.name
+            orderFee = Float(eoList?.expOrder?.price ?? 0)
+            self.orderIdLabel.text = eoList?.extraOrderInfo?.uniOrderId
+            
         default:
             break
         }
+        orderFeeLabel.text = "￥\(NSString(format: "%.2f", orderFee))元"
         
     }
 
@@ -84,6 +89,8 @@ class PayViewController: UIViewController {
             buyLesson()
         case .LessonExp:
             buyLessonExp()
+        case .EoList:
+            gotoPay()
         default:
             break
         }
@@ -126,7 +133,7 @@ class PayViewController: UIViewController {
     }
     
     func buyVip() {
-        guard let orderFee = self.orderFee, let month = self.month else {
+        guard let month = self.month else {
             return
         }
         let url = buyVIP
@@ -153,14 +160,51 @@ class PayViewController: UIViewController {
         MBProgressHUD.hideHUDForView(self.view, animated: true)
         let status = json["success"].boolValue
         if status {
-            let okAction = UIAlertAction(title: "确定", style: .Default) { _ in
-                self.navigationController?.popViewControllerAnimated(true)
+            if payType == .Vip || payType == .Lesson || payType == .LessonExp {
+                self.orderIdLabel.text = json["uniOrderId"].string
             }
-            displayAlertController("完成支付", actions: [okAction])
+            gotoPay()
         }else{
-            displayAlertControllerWithMessage("完成失败")
+            displayAlertControllerWithMessage("订购失败")
 
         }
+    }
+    
+    func gotoPay() {
+        
+        guard let subject = productNameLabel.text, let out_trade_no = orderIdLabel.text else {
+            return
+        }
+        
+        let payHandler : (Bool, String) -> Void = { success, message in
+            if success {
+                let okAction = UIAlertAction(title: "确定", style: .Cancel) { action in
+                    if let count = self.navigationController?.viewControllers.count where count > 3 {
+                        if self.payType == .Vip {
+                            let popVc = self.navigationController?.viewControllers[count - 3]
+                            self.navigationController?.popToViewController(popVc!, animated: true)
+                        }else if self.payType == .EoList {
+                            let popVc = self.navigationController?.viewControllers[count - 2]
+                            self.navigationController?.popToViewController(popVc!, animated: true)
+                        } else {
+                            let popVc = self.navigationController?.viewControllers[count - 4]
+                            self.navigationController?.popToViewController(popVc!, animated: true)
+                        }
+                    } else {
+                        self.navigationController?.popViewControllerAnimated(true)
+                    }
+                }
+                self.displayAlertController(message, actions: [okAction])
+                return
+            } else {
+                self.displayAlertControllerWithMessage(message)
+                return
+            }
+        }
+        
+        let orderContent = OrderContent(subject: subject, out_trade_no: out_trade_no, total_amount: orderFee)
+        
+        AliPayController.payWithEcodeOrderInfo(orderContent, handler: payHandler)
     }
 
 }
